@@ -1,0 +1,437 @@
+/* === style.css === */
+
+/* 1. Base reset & font */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  background-image: #eef2f7;
+  color: #333;
+}
+
+/* 2. Sidebar */
+.sidebar {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 200px;
+  background: #1c9711;
+  display: flex;
+  flex-direction: column;
+  padding-top: 40px;
+  gap: 4px;
+}
+
+/* 3. Sidebar links */
+.sidebar a {
+  display: block;
+  padding: 12px 24px;
+  color: #ffffff;
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  transition: background 0.2s, border-left 0.2s;
+}
+
+/* Highlight active or hover */
+.sidebar a.active,
+.sidebar a:hover {
+  background: #193053;
+  border-left: 3px solid #e8c256;
+}
+
+/* Push the last link (Logout) to the bottom */
+.sidebar a:last-child {
+  margin-top: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 4. Main content area */
+.main-content {
+  margin-left: 220px;
+  /* sidebar width + gap */
+  padding: 40px 30px;
+  background: #fff;
+  min-height: 100vh;
+}
+
+/* 5. Headings inside main-content */
+.main-content h1,
+.main-content h2 {
+  margin-top: 0;
+  color: #243a5e;
+}
+
+/* 6. Responsive adjustments */
+@media (max-width: 600px) {
+  .sidebar {
+    width: 100px;
+    font-size: 13px;
+    padding-top: 20px;
+  }
+
+  .main-content {
+    margin-left: 120px;
+    padding: 20px 10px;
+  }
+}
+
+/* Account Settings Card */
+.account-settings-card {
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Header */
+.account-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.account-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #243a5e;
+}
+
+.employee-id {
+  color: #777;
+  font-size: 0.9rem;
+  margin: 4px 0 0;
+}
+
+.btn-edit {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  background: #4c8bf5;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-edit:hover {
+  background: #3a6fd1;
+}
+
+/* Form layout */
+.account-form .form-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.account-form .form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.account-form .form-group label {
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.account-form .form-group input,
+.account-form .form-group select {
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccd0d5;
+  border-radius: 4px;
+}
+
+/* Email section */
+.email-section {
+  margin-top: 24px;
+}
+
+.email-section h2 {
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+  color: #243a5e;
+}
+
+.email-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.email-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.email-timestamp {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.add-email-btn {
+  margin-top: 12px;
+  padding: 6px 12px;
+  border: 1px dashed #4c8bf5;
+  background: transparent;
+  color: #4c8bf5;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.add-email-btn:hover {
+  background: rgba(76, 139, 245, 0.1);
+}
+
+/* 1) Make the wrapper position relative */
+.password-wrapper {
+  position: relative;
+  display: inline-flex;
+  /* shrink to fit input + eye */
+  width: 100%;
+  /* or flex:1 if inside a flex column */
+}
+
+/* 2) Give the input extra padding on the right */
+.password-wrapper input {
+  flex: 1;
+  padding-right: 2.5rem;
+  /* room for the eye */
+}
+
+/* 3) Absolutely position the eye inside that padding */
+.password-wrapper .eye-btn {
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  /* tweak to center horizontally */
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  /* match your input font-size */
+  opacity: 0.6;
+  padding: 0;
+  /* no extra button padding */
+}
+
+/* 4) Hover state for the eye */
+.password-wrapper .eye-btn:hover {
+  opacity: 1;
+}
+
+.calendar {
+  width: flex;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1c9711;
+  color: white;
+  padding: 10px;
+}
+
+.calendar-header button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.day-names,
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+}
+
+.day-names div {
+  font-weight: bold;
+  padding: 10px 0;
+  background: #ddd;
+}
+
+.days div {
+  padding: 15px 0;
+  border: 1px solid #eee;
+}
+
+.days div.today {
+  background-color: #f39c12;
+  color: white;
+  border-radius: 50%;
+}
+
+/* Modal overlay + content */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 360px;
+  position: relative;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content .close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: #666;
+  transition: color .2s;
+}
+
+.modal-content .close:hover {
+  color: #000;
+}
+
+.request-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.request-table th,
+.request-table td {
+  border: 1px solid #ccd0d5;
+  padding: 8px;
+  text-align: left;
+}
+
+.request-table th {
+  background: #e8f0fe;
+  color: #243a5e;
+}
+
+.request-table .approve-btn {
+  /* or .deny-btn, .delete-btn */
+  margin-right: 4px;
+  /* your button styles */
+}
+
+
+.request-table tr.approved td {
+  background: #e6ffed;
+}
+
+.request-table tr.denied td {
+  background: #ffe6e6;
+}
+
+
+/* Color‐coding statuses on your day cells */
+#calendar-days .day.pending {
+  background: #fff8c4;
+}
+
+#calendar-days .day.approved {
+  background: #d4f8d4;
+}
+
+#calendar-days .day.denied {
+  background: #f8d4d4;
+}
+
+/* light pink background + star indicator */
+.day.holiday {
+  background: #ffecec;
+  position: relative;
+}
+
+.day.holiday::after {
+  content: "★";
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  font-size: 0.7rem;
+  color: #d32f2f;
+}
+
+/* Calendar wrapper */
+.leave-calendar {
+  margin-top: 1rem;
+  overflow-x: auto;
+}
+.leave-calendar table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.leave-calendar th,
+.leave-calendar td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+.leave-calendar thead th {
+  background: #1c9711;
+  color: #fff;
+  font-weight: 600;
+}
+.leave-calendar tbody tr:nth-child(even) td {
+  background: #fafafa;
+}
+.leave-calendar td.empty {
+  background: #f5f5f5;
+}
+
+/* Optional: highlight today */
+.leave-calendar td.today {
+  background: #fffae6;
+  font-weight: bold;
+}
+
+/* Make the prev/next buttons sit flush */
+#prev-month,
+#next-month {
+  background: #1c9711;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+#prev-month:hover,
+#next-month:hover {
+  background: #157b0f;
+}
+.calendar-title {
+  text-align: center;
+  margin: 1rem 0;
+  font-size: 1.25rem;
+}

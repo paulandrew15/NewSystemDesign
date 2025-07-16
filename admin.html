@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="sidebar">
+        <a href="#" onclick="showView('calendar-view'); return false;" class="active">
+            Calendar
+        </a>
+        <a href="#" onclick="showView('staff-list-view'); return false;">
+            Staff List
+        </a>
+        <a href="#" onclick="showView('account-view'); return false;">
+            Account Settings
+        </a>
+        <a href="#" onclick="logout(); return false;">
+            Logout
+        </a>
+    </div>
+
+    <div class="main-content">
+        <!-- Calendar tab -->
+        <section id="calendar-view">
+            <h1>All Users’ Leave Quotas</h1>
+
+            <!-- ← ADD THIS: -->
+            <div id="calendar-controls" class="calendar-header">
+                <button id="prev-month">‹</button>
+                <span id="calendar-title"></span>
+                <button id="next-month">›</button>
+            </div>
+
+            <div id="monthly-calendar" class="leave-calendar"></div>
+        </section>
+
+        <!-- Day-detail modal -->
+        <div id="day-modal" class="modal">
+            <div class="modal-content">
+                <span id="close-day-modal" class="close">&times;</span>
+                <h2>Requests on <span id="day-date"></span></h2>
+                <table class="request-table" id="day-request-table">
+                    <thead>
+                        <tr>
+                            <th>Role</th>
+                            <th>Reason</th>
+                            <th>Attachment</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Staff List tab -->
+        <section id="staff-list-view" style="display:none;">
+            <h1>Staff Directory</h1>
+            <table class="request-table" id="staff-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- populated by admin.js -->
+                </tbody>
+            </table>
+        </section>
+
+        <section id="account-view" style="display:none;">
+            <div class="account-settings-card">
+                <div class="account-header">
+                    <div>
+                        <h1 id="admin-name">Admin Name</h1>
+                        <p class="employee-id">ID: <span id="admin-id">ADM••••••</span></p>
+                    </div>
+                    <button type="button" class="btn-edit">Edit</button>
+                </div>
+                <form class="account-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input id="fullName" type="text" value="Your Name" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactNumber">Contact Number</label>
+                            <input id="contactNumber" type="tel" value="(09) " disabled>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newPassword">Change Password</label>
+                            <div class="password-wrapper">
+                                <input id="newPassword" type="password" placeholder="••••••••" disabled>
+                                <button type="button" class="eye-btn" aria-label="Show password">👁</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="employeeRole">Role</label>
+                            <input id="employeeRole" type="text" value="Admin" disabled>
+                        </div>
+                    </div>
+                    <div class="email-section">
+                        <h2>My Email Address</h2>
+                        <div class="email-item">
+                            <div class="email-left">
+                                <input type="checkbox" checked disabled>
+                                <label>admin@example.com</label>
+                            </div>
+                            <span class="email-timestamp">just now</span>
+                        </div>
+                        <button type="button" class="add-email-btn">+ Add Email Address</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </div>
+
+
+
+    <script src="common.js"></script>
+    <script src="admin.js"></script>
+</body>
+
+</html>

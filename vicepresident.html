@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Vice President</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <a href="#" onclick="showView('dashboard-view'); return false;" class="active">
+            Requests
+        </a>
+        <a href="#" onclick="showView('account-view'); return false;">
+            Account Settings
+        </a>
+        <a href="#" onclick="logout(); return false;">
+            Logout
+        </a>
+    </div>
+
+    <!-- MAIN CONTENT WRAPS BOTH VIEWS -->
+    <div class="main-content">
+
+        <!-- 1) REQUESTS VIEW -->
+        <section id="dashboard-view">
+            <h1>VP Requests</h1>
+            <p>Here you’ll review and approve staff leave requests.</p>
+            <table id="request-table" class="request-table">
+                <thead>
+                    <tr>
+                        <th>Staff ID</th>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Reason</th>
+                        <th>Attachment</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="request-table-body">
+                    <!-- rows injected by vicepresident.js -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- 2) ACCOUNT SETTINGS VIEW -->
+        <section id="account-view" style="display: none;">
+            <div class="account-settings-card">
+                <div class="account-header">
+                    <div>
+                        <h1>VP Name</h1>
+                        <p class="employee-id">ID: VP••••••</p>
+                    </div>
+                    <button type="button" class="btn-edit">Edit</button>
+                </div>
+
+                <form class="account-form">
+                    <!-- Full Name & Contact -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input id="fullName" type="text" value="Your First Name" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="vpContact">Contact Number</label>
+                            <input id="vpContact" type="tel" value="(09) " disabled>
+                        </div>
+                    </div>
+
+                    <!-- Password & Role -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newPassword">Change Password</label>
+                            <div class="password-wrapper">
+                                <input id="newPassword" type="password" placeholder="••••••••" disabled />
+                                <button type="button" class="eye-btn" aria-label="Show password">👁</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="employeeRole">Role</label>
+                            <input id="employeeRole" type="text" value="Vice President" disabled>
+                        </div>
+                    </div>
+
+                    <!-- Email Section -->
+                    <div class="email-section">
+                        <h2>My Email Address</h2>
+                        <div class="email-item">
+                            <div class="email-left">
+                                <input type="checkbox" checked disabled>
+                                <label>vp@example.com</label>
+                            </div>
+                            <span class="email-timestamp">just now</span>
+                        </div>
+                        <button type="button" class="add-email-btn">+ Add Email Address</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </div><!-- /.main-content -->
+
+    <!-- 1) Common helpers & shared wiring must come first -->
+    <script src="common.js"></script>
+    <!-- 2) Then page-specific behavior -->
+    <script src="vicepresident.js"></script>
+</body>
+
+</html>
