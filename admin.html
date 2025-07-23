@@ -26,7 +26,7 @@
     <div class="main-content">
         <!-- Calendar tab -->
         <section id="calendar-view">
-            <h1>All Users’ Leave Quotas</h1>
+            <h1>Leave Quotas</h1>
 
             <!-- ← ADD THIS: -->
             <div id="calendar-controls" class="calendar-header">
@@ -42,22 +42,52 @@
         <div id="day-modal" class="modal">
             <div class="modal-content">
                 <span id="close-day-modal" class="close">&times;</span>
-                <h2>Requests on <span id="day-date"></span></h2>
+
+                <h2>Details for <span id="day-date"></span></h2>
+
+                <!-- 1) Summary -->
+                <section class="attendance-summary">
+                    <div class="stat total">
+                        <div class="number">0</div>
+                        <div class="label">Total</div>
+                    </div>
+                    <div class="stat present">
+                        <div class="number">0</div>
+                        <div class="label">Approved</div>
+                    </div>
+                    <div class="stat pending">
+                        <div class="number">0</div>
+                        <div class="label">Pending</div>
+                    </div>
+                    <div class="stat late">
+                        <div class="number">0</div>
+                        <div class="label">Denied</div>
+                    </div>
+                </section>
+
+                <!-- 2) Table of raw requests (optional) -->
                 <table class="request-table" id="day-request-table">
                     <thead>
                         <tr>
-                            <th>Role</th>
+                            <th>Name</th>
                             <th>Reason</th>
                             <th>Attachment</th>
                             <th>Status</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- populated by JS -->
+                        <!-- JS will inject one <tr> per request, including buttons -->
                     </tbody>
                 </table>
+
+                <!-- 3) Or, if you prefer cards/list view instead: -->
+                <section class="attendance-list">
+                </section>
+
             </div>
         </div>
+
 
         <!-- Staff List tab -->
         <section id="staff-list-view" style="display:none;">
@@ -89,7 +119,7 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="fullName">Full Name</label>
-                            <input id="fullName" type="text" value="Your Name" disabled>
+                            <input id="fullName" type="text" value="Your Full Name" disabled>
                         </div>
                         <div class="form-group">
                             <label for="contactNumber">Contact Number</label>

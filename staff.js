@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
           reason: reasonEl.value,
           fileName: fileEl.files[0].name,
           fileData: reader.result,
-          status: 'pending',
+          status: 'pending-admin',
           userId: localStorage.getItem('userId'),
           fullName: localStorage.getItem('fullName')
         })

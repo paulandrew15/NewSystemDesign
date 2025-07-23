@@ -63,20 +63,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ACCOUNT-SETTINGS eye-toggle (runs on any page that has an #account-view)
+    // ACCOUNT‐SETTINGS eye‐toggles (only when enabled)
     if (document.getElementById('account-view')) {
-        document
-            .querySelectorAll('#account-view .password-wrapper')
-            .forEach(wrapper => {
-                const input = wrapper.querySelector('input');
-                const btn = wrapper.querySelector('.eye-btn');
-                if (!input || !btn) return;
-                btn.addEventListener('click', e => {
-                    e.preventDefault();
-                    const hidden = input.getAttribute('type') === 'password';
-                    input.setAttribute('type', hidden ? 'text' : 'password');
-                    btn.style.opacity = hidden ? '1' : '0.6';
-                });
+        document.querySelectorAll('#account-view .password-wrapper').forEach(wrapper => {
+            const input = wrapper.querySelector('input');
+            const btn = wrapper.querySelector('.eye-btn');
+            if (!input || !btn) return;
+
+            btn.addEventListener('click', e => {
+                // only work when enabled
+                if (btn.disabled) return;
+                e.preventDefault();
+                const hidden = input.type === 'password';
+                input.type = hidden ? 'text' : 'password';
+                btn.style.opacity = hidden ? '1' : '0.6';
+                btn.setAttribute('aria-label', hidden ? 'Hide password' : 'Show password');
             });
+        });
     }
 
     // Multi-view pages (Admin/VP/Faculty/Staff Dashboards)
@@ -98,18 +101,31 @@ document.addEventListener('DOMContentLoaded', () => {
         if (headerName) headerName.textContent = localStorage.getItem('fullName') || headerName.textContent;
 
         // Edit/Save toggle (leave eye-btns always enabled)
+        // inside your common.js or page-specific JS, after you define eyeBtns and headerName:
         const editBtn = document.querySelector('#account-view .btn-edit');
         if (editBtn) {
+            const eyeBtns = document.querySelectorAll('#account-view .eye-btn');
+            const headerName = document.querySelector('#account-view .account-header h1');
+
+            // disable eye-buttons initially
+            eyeBtns.forEach(b => b.disabled = true);
+
             editBtn.addEventListener('click', () => {
-                const editing = editBtn.textContent.trim() === 'Edit';
-                // toggle all form fields except the eye buttons
-                document.querySelectorAll(
-                    '#account-view .account-form input:not(.eye-btn), #account-view .account-form select'
-                ).forEach(f => f.disabled = !editing);
-                // swap button label
-                editBtn.textContent = editing ? 'Save' : 'Edit';
-                if (!editing) {
-                    // persist fullName
+                const isEditing = editBtn.textContent.trim() === 'Edit';
+
+                // toggle all form inputs & selects
+                document
+                    .querySelectorAll('#account-view .account-form input, #account-view .account-form select')
+                    .forEach(f => f.disabled = !isEditing);
+
+                // toggle eye-buttons in sync
+                eyeBtns.forEach(b => b.disabled = !isEditing);
+
+                // swap button text
+                editBtn.textContent = isEditing ? 'Save' : 'Edit';
+
+                if (!isEditing) {
+                    // on Save, persist fullName and update header
                     const fullNameInput = document.getElementById('fullName');
                     if (fullNameInput && headerName) {
                         localStorage.setItem('fullName', fullNameInput.value);
@@ -118,6 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }
+
 
         // Add Email button
         const addEmail = document.querySelector('#account-view .add-email-btn');

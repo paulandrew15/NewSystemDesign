@@ -28,11 +28,12 @@
         <!-- 1) REQUESTS VIEW -->
         <section id="dashboard-view">
             <h1>VP Requests</h1>
-            <p>Here you’ll review and approve staff leave requests.</p>
-            <table id="request-table" class="request-table">
+            <p>Here you’ll review and approve staff & faculty leave requests.</p>
+
+            <table class="request-table">
                 <thead>
                     <tr>
-                        <th>Staff ID</th>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>Date</th>
                         <th>Reason</th>
@@ -41,7 +42,7 @@
                     </tr>
                 </thead>
                 <tbody id="request-table-body">
-                    <!-- rows injected by vicepresident.js -->
+                    <!-- JS will inject <tr> rows here -->
                 </tbody>
             </table>
         </section>
@@ -62,7 +63,7 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="fullName">Full Name</label>
-                            <input id="fullName" type="text" value="Your First Name" disabled>
+                            <input id="fullName" type="text" value="Your Full Name" disabled>
                         </div>
                         <div class="form-group">
                             <label for="vpContact">Contact Number</label>
