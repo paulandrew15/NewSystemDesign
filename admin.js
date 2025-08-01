@@ -8,6 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.sidebar a').forEach(a => {
             a.classList.toggle('active', a.getAttribute('onclick')?.includes(id));
         });
+        // 🔥 Always load leave history when viewing that section
+        if (id === 'leave-view' && typeof loadLeaveHistory === 'function') {
+            loadLeaveHistory();
+        }
     }
     // default
     showView('calendar-view');
@@ -244,19 +248,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // wire eye-toggle
-        document.querySelectorAll('#account-view .password-wrapper').forEach(wrap => {
-            const inp = wrap.querySelector('input');
-            const btn = wrap.querySelector('.eye-btn');
-            btn.addEventListener('click', e => {
-                e.preventDefault();
-                if (btn.disabled) return;
-                const pwd = inp.type === 'password';
-                inp.type = pwd ? 'text' : 'password';
-                btn.style.opacity = pwd ? '1' : '0.6';
-            });
-        });
-
         // Add Email
         const addEmail = document.querySelector('#account-view .add-email-btn');
         const emailSec = document.querySelector('#account-view .email-section');
@@ -274,5 +265,54 @@ document.addEventListener('DOMContentLoaded', () => {
             emailSec.insertBefore(div, addEmail);
         });
     })();
+
+    // — 5) Leave History —
+    (function initLeaveHistory() {
+        const section = document.getElementById('leave-view');
+        if (!section) return;
+
+        const tbody = section.querySelector('tbody');
+        if (!tbody) return;
+
+        function loadLeaveHistory() {
+            tbody.innerHTML = '';
+            Object.keys(localStorage).forEach(key => {
+                if (!key.includes('-request-')) return;
+
+                const r = JSON.parse(localStorage.getItem(key));
+                const dateStr = key.split('-request-')[1];
+
+                const date = dateStr ? new Date(dateStr) : null;
+                if (!date || isNaN(date)) return; // skip invalid dates
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+            <td>${r.fullName || ''}</td>
+            <td>${date.toLocaleDateString('default', {
+                    year: 'numeric', month: 'short', day: 'numeric'
+                })}</td>
+            <td>${r.reason || ''}</td>
+            <td>
+                ${r.fileName && r.fileData
+                        ? `<a href="${r.fileData}" download="${r.fileName}">${r.fileName}</a>`
+                        : '—'}
+            </td>
+            <td>${r.status || ''}</td>`;
+                tbody.appendChild(tr);
+            });
+        }
+
+
+        // Load when leave-view is shown
+        const leaveLink = document.querySelector('.sidebar a[onclick*="leave-view"]');
+        if (leaveLink) {
+            leaveLink.addEventListener('click', () => {
+                showView('leave-view');
+                loadLeaveHistory();
+            });
+        }
+    })();
+
+
 
 }); 

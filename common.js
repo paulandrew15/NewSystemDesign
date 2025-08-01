@@ -50,6 +50,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const role = localStorage.getItem('selectedRole');
     if (titleEl && role) titleEl.innerText = 'Login as ' + role;
 
+    const sidebar = document.getElementById("sidebar");
+    const toggleBtn = document.getElementById("toggleBtn");
+
+    if (sidebar && toggleBtn) {
+        toggleBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("collapsed");
+        });
+    }
+
+    // Handle logout button (for role pages)
+    const logoutBtn = document.querySelector(".logout-btn");
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", () => {
+            window.location.href = "main.html"; // back to login
+        });
+    }
+
     // LOGIN eye-toggle
     const pw = document.getElementById('password');
     const toggle = document.getElementById('togglePassword');

@@ -12,8 +12,11 @@
         <a href="#" onclick="showView('calendar-view'); return false;" class="active">
             Calendar
         </a>
+        <a href="#" onclick="showView('leave-view'); return false;">
+            Leave History
+        </a>
         <a href="#" onclick="showView('staff-list-view'); return false;">
-            Staff List
+            Personnel List
         </a>
         <a href="#" onclick="showView('account-view'); return false;">
             Account Settings
@@ -88,10 +91,27 @@
             </div>
         </div>
 
+        <section id="leave-view" style="display: none;">
+            <h1>Leave History</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Date</th>
+                        <th>Reason</th>
+                        <th>Attachment</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- This gets filled dynamically -->
+                </tbody>
+            </table>
+        </section>
 
         <!-- Staff List tab -->
         <section id="staff-list-view" style="display:none;">
-            <h1>Staff Directory</h1>
+            <h1>Personnel Directory</h1>
             <table class="request-table" id="staff-table">
                 <thead>
                     <tr>

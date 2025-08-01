@@ -75,6 +75,38 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>`;
     }
 
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const dateKey = form.dataset.dateKey;
+      if (!dateKey || !fileEl.files.length) return;
+
+      const file = fileEl.files[0];
+
+      if (file.type !== 'application/pdf') {
+        alert('Only PDF files are allowed.');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        localStorage.setItem(
+          `${roleKey}-request-${dateKey}`,
+          JSON.stringify({
+            reason: reasonEl.value,
+            fileName: file.name,
+            fileData: reader.result,
+            status: 'pending-admin',
+            userId: localStorage.getItem('userId'),
+            fullName: localStorage.getItem('fullName')
+          })
+        );
+        modal.style.display = 'none';
+        renderCalendar(currentDate);
+      };
+      reader.readAsDataURL(file);
+    });
+
+
     // 3c) Trailing blanks
     const used = firstDow + lastDay,
       trail = (7 - (used % 7)) % 7;
