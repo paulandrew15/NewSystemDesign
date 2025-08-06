@@ -11,6 +11,17 @@
 <body>
     <div class="login-card">
         <h2>Login</h2>
+        <div class="form-group">
+            <label for="role">Select Role:</label>
+            <select id="role" required>
+                <option value="">-- Select Role --</option>
+                <option value="Admin">Admin</option>
+                <option value="Vice President">Vice President</option>
+                <option value="Faculty">Faculty</option>
+                <option value="Staff">Staff</option>
+            </select>
+        </div>
+
         <form onsubmit="return login(event)">
             <div class="form-group">
                 <label for="id">User ID</label>
@@ -26,7 +37,6 @@
             </div>
             <button type="submit" class="btn-primary">Login</button>
         </form>
-        <button type="button" class="back-link" onclick="goBackToRoleSelect()">← Back</button>
     </div>
 
     <script src="common.js"></script>

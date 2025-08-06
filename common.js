@@ -1,18 +1,14 @@
 // common.js
 
 // — Helpers —
-function goToLogin(role) {
-    localStorage.setItem('selectedRole', role);
-    window.location.href = 'login.html';
-}
 function goBackToRoleSelect() {
     window.location.href = 'index.html';
 }
 function redirectToRolePage() {
-    const role = localStorage.getItem('selectedRole');
-    if (role === 'Admin') return 'admin.html';
-    if (role === 'Vice President') return 'vicepresident.html';
-    if (role === 'Faculty') return 'faculty.html';
+    const role = (localStorage.getItem('selectedRole') || '').toLowerCase();
+    if (role === 'admin') return 'admin.html';
+    if (role === 'vice president') return 'vicepresident.html';
+    if (role === 'faculty') return 'faculty.html';
     return 'staff.html';
 }
 function showView(id) {
@@ -29,7 +25,7 @@ function showView(id) {
 }
 function logout() {
     localStorage.removeItem('selectedRole');
-    window.location.href = 'index.html';
+    window.location.href = 'login.html';
 }
 
 // — Main initializer —
@@ -39,10 +35,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (loginForm) {
         loginForm.addEventListener('submit', event => {
             event.preventDefault();
+
             const userId = document.getElementById('id').value;
+            const selectedRole = document.getElementById('role').value;
+
+            if (!selectedRole || !userId) {
+                alert('Please fill in all fields.');
+                return;
+            }
+
             localStorage.setItem('userId', userId);
+            localStorage.setItem('selectedRole', selectedRole);
             window.location.href = redirectToRolePage();
         });
+
     }
 
     // Role title on login
